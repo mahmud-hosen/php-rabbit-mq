@@ -1,4 +1,27 @@
 
+## RABBIT MQ Flow Chart
+![RABBIT MQ Flow Chart](diagram.png)
+
+## Basic Concept
+    1) Producer forward a message to Exchange
+    2) Exchange forward to queue then
+    3) Consumer receive a message from queue
+
+    Producer is a user application that sends messages
+    Queue is a buffer that stores messages
+    Consumer is a user application that receives messages
+
+## There are a few exchange types available: direct, topic, headers and fanout.
+
+    1) Fanout: 
+        The fanout exchange broadcasts messages to all connected queues.
+        Every queue linked to the exchange gets a copy of every message, regardless of any specific criteria.
+
+    2) Direct:
+        Messages are sent to a direct exchange with a specific routing key.Queues are bound to the exchange with specific routing keys.
+    
+        The message is delivered to the queues whose binding key matches the routing key of the message.
+
 ## 1) Install :  Erlang/OTP
 	Download Link:      https://www.erlang.org/downloads#source
 
@@ -18,13 +41,6 @@
     http://localhost:15672/
     RABBIT MQ  Username: guest
         Password:  guest
-
-## References:
-    https://www.rabbitmq.com/docs/install-windows-manual#set-erlang-home-variable
-
-## RABBIT MQ Flow Chart
-![RABBIT MQ Flow Chart](diagram.png)
-
 
 ## Sudo Code:
     For Sender:
@@ -107,4 +123,7 @@
     $channel->close();
     $connection->close();
 `
+
+## References:
+    https://www.rabbitmq.com/docs/install-windows-manual#set-erlang-home-variable
 

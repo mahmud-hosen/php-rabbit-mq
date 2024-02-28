@@ -23,5 +23,4 @@ RABBIT MQ  Username: guest
 Details:           https://www.rabbitmq.com/docs/install-windows-manual#set-erlang-home-variable
 
 
-exchange  RabbitMQ server
-
+ 
