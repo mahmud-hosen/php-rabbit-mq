@@ -92,7 +92,7 @@ class StreamIO extends AbstractIO
             );
             $this->throwOnError();
         } catch (\ErrorException $e) {
-            throw new AMQPIOException($e->getMessage());
+            throw new AMQPIOException($e->getMessage(), $e->getCode(), $e->getPrevious());
         } finally {
             $this->restoreErrorHandler();
         }
@@ -192,7 +192,7 @@ class StreamIO extends AbstractIO
                 $buffer = fread($this->sock, ($len - $read));
                 $this->throwOnError();
             } catch (\ErrorException $e) {
-                throw new AMQPDataReadException($e->getMessage(), $e->getCode(), $e);
+                throw new AMQPDataReadException($e->getMessage(), $e->getCode(), $e->getPrevious());
             } finally {
                 $this->restoreErrorHandler();
             }
@@ -245,7 +245,8 @@ class StreamIO extends AbstractIO
         $write_start = microtime(true);
 
         while ($written < $len) {
-            if (!is_resource($this->sock) || feof($this->sock)) {
+            // on Windows, feof() fails when connecting to some (but not all) servers
+            if (!is_resource($this->sock) || (PHP_OS_FAMILY != 'Windows' && feof($this->sock))) {
                 $this->close();
                 $constants = SocketConstants::getInstance();
                 throw new AMQPConnectionClosedException('Broken pipe or closed connection', $constants->SOCKET_EPIPE);
@@ -264,12 +265,17 @@ class StreamIO extends AbstractIO
                 // check stream and prevent from high CPU usage
                 $result = 0;
                 if ($this->select_write()) {
-                    $buffer = mb_substr($data, $written, self::BUFFER_SIZE, 'ASCII');
+                    // if data is smaller than buffer - no need to cut part of it
+                    if ($len <= self::BUFFER_SIZE) {
+                        $buffer = $data;
+                    } else {
+                        $buffer = mb_substr($data, $written, self::BUFFER_SIZE, 'ASCII');
+                    }
                     $result = fwrite($this->sock, $buffer);
                 }
                 $this->throwOnError();
             } catch (\ErrorException $e) {
-                $code = $this->last_error['errno'];
+                $code = $e->getCode();
                 $constants = SocketConstants::getInstance();
                 switch ($code) {
                     case $constants->SOCKET_EPIPE:
@@ -450,7 +456,7 @@ class StreamIO extends AbstractIO
                 usleep(1e3);
             } while ($enabled === 0 && time() < $timeout_at);
         } catch (\ErrorException $exception) {
-            throw new AMQPIOException($exception->getMessage(), $exception->getCode(), $exception);
+            throw new AMQPIOException($exception->getMessage(), $exception->getCode(), $exception->getPrevious());
         } finally {
             $this->restoreErrorHandler();
         }

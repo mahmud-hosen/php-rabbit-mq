@@ -9,10 +9,10 @@ $channel = $connection->channel();
 
 
 // queue_declare function( Queue Name, Passive, Durable, Exclusive, Auto-delete)
-$channel->queue_declare('queues_1', false, false, false, false);
+$channel->queue_declare('queues_5', false, false, false, false);
 
 $msg = new AMQPMessage('Queues 1: Hello MD, How are you?');
-$channel->basic_publish($msg, '', 'queues_1');
+$channel->basic_publish($msg, '', 'queues_5');
 
 
 echo " Queues 1 - Sent 'Message!'\n";

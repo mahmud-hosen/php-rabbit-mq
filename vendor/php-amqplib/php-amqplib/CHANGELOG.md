@@ -1,5 +1,71 @@
 # Changelog
 
+## [v3.7.1](https://github.com/php-amqplib/php-amqplib/tree/v3.7.1) (2024-09-03)
+
+[Full Changelog](https://github.com/php-amqplib/php-amqplib/compare/v3.7.0...v3.7.1)
+
+**Implemented enhancements:**
+
+- Fix wrong stream IO error code, improve write speed [\#1192](https://github.com/php-amqplib/php-amqplib/pull/1192) ([ramunasd](https://github.com/ramunasd))
+- AMQP Exception marker interface is for `Throwable` types [\#1189](https://github.com/php-amqplib/php-amqplib/pull/1189) ([Ocramius](https://github.com/Ocramius))
+
+## [v3.7.0](https://github.com/php-amqplib/php-amqplib/tree/v3.7.0) (2024-07-09)
+
+[Full Changelog](https://github.com/php-amqplib/php-amqplib/compare/v3.6.2...v3.7.0)
+
+**Implemented enhancements:**
+
+- fix: create a new exception for each warning in IO layer with reference to previous [\#1183](https://github.com/php-amqplib/php-amqplib/pull/1183) ([ramunasd](https://github.com/ramunasd))
+
+**Fixed bugs:**
+
+- first error message thrown by stream\_socket\_enable\_crypto\(\) is not propagated to caller [\#1181](https://github.com/php-amqplib/php-amqplib/issues/1181)
+
+**Closed issues:**
+
+- feof\(\) check in /Wire/IO/StreamIO::write\(\) blocks connection [\#1176](https://github.com/php-amqplib/php-amqplib/issues/1176)
+
+**Merged pull requests:**
+
+- AMQPConnectionClosedException is never thrown from checkConnection\(\) [\#1185](https://github.com/php-amqplib/php-amqplib/pull/1185) ([villfa](https://github.com/villfa))
+- chore: deprecate properties related to old protocol mode [\#1182](https://github.com/php-amqplib/php-amqplib/pull/1182) ([ramunasd](https://github.com/ramunasd))
+- Add verbose test output [\#1180](https://github.com/php-amqplib/php-amqplib/pull/1180) ([lukebakken](https://github.com/lukebakken))
+- CI workflow updates [\#1179](https://github.com/php-amqplib/php-amqplib/pull/1179) ([lukebakken](https://github.com/lukebakken))
+- deprecate AMQPSSLConnection class [\#1178](https://github.com/php-amqplib/php-amqplib/pull/1178) ([ramunasd](https://github.com/ramunasd))
+- remove feof\(\) check on connection.  this check fails under Windows wh… [\#1177](https://github.com/php-amqplib/php-amqplib/pull/1177) ([jjdunn](https://github.com/jjdunn))
+
+## [v3.6.2](https://github.com/php-amqplib/php-amqplib/tree/v3.6.2) (2024-04-15)
+
+[Full Changelog](https://github.com/php-amqplib/php-amqplib/compare/v3.6.1...v3.6.2)
+
+**Merged pull requests:**
+
+- Trigger ssl\_protocol deprecation when it is really not null and not AMQPConnectionConfig instance [\#1163](https://github.com/php-amqplib/php-amqplib/pull/1163) ([SergeyKhrystenko](https://github.com/SergeyKhrystenko))
+
+## [v3.6.1](https://github.com/php-amqplib/php-amqplib/tree/v3.6.1) (2024-02-07)
+
+[Full Changelog](https://github.com/php-amqplib/php-amqplib/compare/v3.6.0...v3.6.1)
+
+**Implemented enhancements:**
+
+- ipv6 support [\#1145](https://github.com/php-amqplib/php-amqplib/pull/1145) ([InnoT20](https://github.com/InnoT20))
+
+**Fixed bugs:**
+
+- fix: throw exception on stream\_socket\_enable\_crypto\(\) warning [\#1158](https://github.com/php-amqplib/php-amqplib/pull/1158) ([ramunasd](https://github.com/ramunasd))
+
+**Closed issues:**
+
+-  stream\_set\_blocking\(\): Argument \#2 \($enable\) must be of type bool, int given [\#1155](https://github.com/php-amqplib/php-amqplib/issues/1155)
+- Connection option close\_on\_destruct doesn't work because of circular reference [\#1144](https://github.com/php-amqplib/php-amqplib/issues/1144)
+- Cannot avoid static analysis issues with deprecation of `$ssl_options` in `AMQPStreamConnection` [\#1136](https://github.com/php-amqplib/php-amqplib/issues/1136)
+
+**Merged pull requests:**
+
+- fix static analysis warnings [\#1156](https://github.com/php-amqplib/php-amqplib/pull/1156) ([ramunasd](https://github.com/ramunasd))
+- Delay stream resource init [\#1154](https://github.com/php-amqplib/php-amqplib/pull/1154) ([ramunasd](https://github.com/ramunasd))
+- Widen `AMQPStreamConnection`'s `$ssl_protocol` parameter to accept `AMQPConnectionConfig` [\#1137](https://github.com/php-amqplib/php-amqplib/pull/1137) ([ben-challis](https://github.com/ben-challis))
+
 ## [v3.6.0](https://github.com/php-amqplib/php-amqplib/tree/v3.6.0) (2023-10-22)
 
 [Full Changelog](https://github.com/php-amqplib/php-amqplib/compare/v3.5.4...v3.6.0)
